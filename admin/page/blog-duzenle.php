@@ -1,5 +1,16 @@
 <?php
+require_once('../classes/db.class.php');
+include "../classes/functions.class.php";
 include "../inc/_header.php";
+?>
+
+<?php
+$tablo_adi = "blog";
+$tablo_id_alan = "blog_id";
+$sorgu = "";
+$veri = new Veri();
+$tablo_id = $_GET["blog_id"];
+$veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
 ?>
 
 
@@ -24,25 +35,25 @@ include "../inc/_header.php";
                           <div class="mb-3">
                             <label for="blog_resim" class="form-label"> <h6 style="color: black;">Resim</h6></label>
                             <img style="width:150px;" class="img-fluid mb-4" src="#" alt="">
-                            <input class="form-control bg-dark" type="file" id="blog_resim" name="blog_resim">
+                            <input class="form-control bg-dark" type="file" id="blog_resim" name="blog_resim" value = "<?php echo $veriGetir->blog_resim?>">
                           </div>
                           <div class="mb-3">
                             <label for="blog_baslik" class="form-label"><h6 style="color: black;">Başlık</h6></label>
-                            <input type="text" class="form-control" id="blog_baslik" name="blog_baslik">
+                            <input type="text" class="form-control" id="blog_baslik" name="blog_baslik" value = "<?php echo $veriGetir->blog_baslik?>">
                           </div>
                           <div class="mb-3">
                               <label for="blog_icerik" class="form-label"><h6 style="color: black;">İçerik</h6></label>
-                              <textarea class="form-control" name="blog_icerik" id="blog_icerik" style="min-height: 150px;"></textarea>
+                              <textarea class="form-control" name="blog_icerik" id="blog_icerik" style="min-height: 350px;"><?php echo $veriGetir->blog_icerik?></textarea>
                           </div>
                           <hr>
                           <hr>
                           <div class="mb-3">
                             <label for="blog_keywords" class="form-label"><h6 style="color: black;">Keywords</h6></label>
-                            <input type="text" class="form-control" id="blog_keywords" name="blog_keywords">
+                            <input type="text" class="form-control" id="blog_keywords" name="blog_keywords" value = "<?php echo $veriGetir->blog_keywords?>">
                           </div>
                           <div class="mb-3">
                             <label for="blog_description" class="form-label"><h6 style="color: black;">Description</h6></label>
-                            <input type="text" class="form-control" id="blog_description" name="blog_description">
+                            <input type="text" class="form-control" id="blog_description" name="blog_description" value = "<?php echo $veriGetir->blog_description?>">
                           </div>
                           
                           <div class="mb-3">

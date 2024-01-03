@@ -1,6 +1,18 @@
 <?php
+require_once('../classes/db.class.php');
+include "../classes/functions.class.php";
 include "../inc/_header.php";
 ?>
+
+<?php
+$tablo_adi = "hizmetler";
+$tablo_id_alan = "hizmet_id";
+$sorgu = "";
+$veri = new Veri();
+$tablo_id = $_GET["hizmet_id"];
+$veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
+?>
+
 
 
     <body>
@@ -23,11 +35,11 @@ include "../inc/_header.php";
                       <form method="POST">
                           <div class="mb-3">
                             <label for="hizmet_baslik" class="form-label"><h6 style="color: black;">Hizmet Başlık</h6></label>
-                            <input type="text" class="form-control" id="hizmet_baslik" name="hizmet_baslik">
+                            <input type="text" class="form-control" id="hizmet_baslik" name="hizmet_baslik" value="<?php echo $veriGetir->hizmet_baslik?>">
                           </div>
                           <div class="mb-3">
                               <label for="hizmet_icerik" class="form-label"><h6 style="color: black;">Himzet İçerik</h6></label>
-                              <textarea class="form-control" name="hizmet_icerik" id="hizmet_icerik" style="min-height: 150px;"></textarea>
+                              <textarea class="form-control" name="hizmet_icerik" id="hizmet_icerik" style="min-height: 220px;"><?php echo $veriGetir->hizmet_icerik?></textarea>
                           </div>         
                           <div class="mb-3">
                             <label for="hizmet_durum" class="form-label"><h6 style="color: black;">Hizmet Durumu</h6></label>

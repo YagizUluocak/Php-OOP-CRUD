@@ -31,7 +31,7 @@ include "../inc/_header.php";
                           </div>
                           <div class="mb-3">
                               <label for="blog_icerik" class="form-label"><h6 style="color: black;">İçerik</h6></label>
-                              <textarea class="form-control" name="blog_icerik" id="blog_icerik" style="min-height: 150px;"></textarea>
+                              <textarea class="form-control" name="blog_icerik" id="blog_icerik" style="min-height: 350px;"></textarea>
                           </div>
                           <hr>
                           <hr>

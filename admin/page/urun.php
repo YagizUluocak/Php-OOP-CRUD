@@ -62,7 +62,7 @@ $veriGetir = $veri->veriGetir($tablo_adi, $sorgu);
                                                                     echo $durum;
                                                                 ?>
                                                           </td>
-                                                          <td><p class="hizala"><a href="./urun-duzenle.php" class="btn btn-warning btn-sm"><i class="fa fa-pen me-2"></i>Düzenle</a></p></td>      
+                                                          <td><p class="hizala"><a href="./urun-duzenle.php?urun_id=<?php echo $urun->urun_id?>" class="btn btn-warning btn-sm"><i class="fa fa-pen me-2"></i>Düzenle</a></p></td>      
                                                           <td><p class="hizala"><a href="./urun.php" class="btn btn-danger btn-sm"><i class="fa fa-trash me-2"></i>sil</a></p></td>                                                      
                                                       </tr>
                                                       <?php

@@ -1,7 +1,17 @@
 <?php
+require_once('../classes/db.class.php');
+include "../classes/functions.class.php";
 include "../inc/_header.php";
 ?>
 
+<?php
+$tablo_adi = "kategori";
+$tablo_id_alan = "kategori_id";
+$sorgu = "";
+$veri = new Veri();
+$tablo_id = $_GET["kategori_id"];
+$veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
+?>
 
     <body>
       <div class="container-fluid position-relative d-flex p-0">
@@ -23,7 +33,7 @@ include "../inc/_header.php";
                       <form method="POST">
                           <div class="mb-3">
                             <label for="kategori_adi" class="form-label"><h6 style="color: black;">Kategori Adı</h6></label>
-                            <input type="text" class="form-control" id="kategori_adi" name="kategori_adi">
+                            <input type="text" class="form-control" id="kategori_adi" name="kategori_adi" value="<?php echo $veriGetir->kategori_adi?>">
                           </div>
 
                           <button type="submit" class="btn btn-success rounded-pill" name="submit">Kaydet</button>
