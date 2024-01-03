@@ -1,5 +1,23 @@
 <?php
+require_once('../classes/db.class.php');
+include "../classes/functions.class.php";
 include "../inc/_header.php";
+
+$tablo_ad = "hizmetler";
+$sutunlar = ["hizmet_baslik", "hizmet_icerik", "hizmet_durum"];
+
+if(isset($_POST["submit"]))
+{
+  $hizmet_baslik = $_POST["hizmet_baslik"];
+  $hizmet_icerik = $_POST["hizmet_icerik"];
+  $hizmet_durum  = $_POST["hizmet_durum"];
+  
+  $veri = new Veri();
+  $veriEkle = $veri->veriEkle($tablo_ad, $sutunlar, [$hizmet_baslik, $hizmet_icerik, $hizmet_durum] );
+  
+}
+
+
 ?>
 
 

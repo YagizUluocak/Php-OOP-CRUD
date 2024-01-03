@@ -1,5 +1,19 @@
 <?php
+require_once('../classes/db.class.php');
+include "../classes/functions.class.php";
 include "../inc/_header.php";
+
+$tablo_ad = "kategori";
+$sutunlar = ["kategori_adi"];
+
+
+if(isset($_POST["submit"]))
+{
+  $kategori_adi = $_POST["kategori_adi"];
+  $veri = new Veri();
+  $veriekle = $veri->veriEkle($tablo_ad, $sutunlar, [$kategori_adi]);
+}
+
 ?>
 
 

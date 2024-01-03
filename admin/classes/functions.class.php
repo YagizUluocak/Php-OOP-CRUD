@@ -30,13 +30,13 @@ class Veri extends Db
     {
         // Resim ekleme kendi sayfasında olacak.
         $sutunStr = implode(', ', $sutunlar);
-        $paramStr = implode(', :',$sutunlar);
+        $paramStr = implode(', :', $sutunlar);
 
         $query = "INSERT INTO $tablo_adi($sutunStr) VALUES (:$paramStr)";
         $stmt = $this->connect()->prepare($query);
 
         $paramArray = array_combine($sutunlar, $degerler);
-        $stmt->execute();
+        $stmt->execute($paramArray);
         
     }
     
