@@ -39,6 +39,28 @@ class Veri extends Db
         $stmt->execute($paramArray);
         
     }
+    public function veriDuzenle($tablo_ad, $sutunlar, $kosul)
+    {
+        $query = "UPDATE $tablo_ad SET ";
+
+        $set = [];
+        $params = [];
+        foreach ($sutunlar as $sutun) {
+            $set[] = "$sutun = :$sutun";
+            $params[":$sutun"] = $_POST[$sutun] ?? null;
+        }
+    
+        $query .= implode(', ', $set);
+    
+        if ($kosul) {
+            $query .= " WHERE $kosul";
+        }
+    
+        $stmt = $this->connect()->prepare($query);
+    
+        return $stmt->execute($params);
+
+    }
     
 }
 

@@ -11,10 +11,22 @@ $sorgu = "";
 $veri = new Veri();
 $tablo_id = $_GET["hizmet_id"];
 $veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
+$updated = false;
+
+if(isset($_POST["submit"]))
+{
+  $veri2 = new Veri();
+  $sutunlar = ["hizmet_baslik", "hizmet_icerik", "hizmet_durum"];
+  $kosul = 'hizmet_id='.$_GET["hizmet_id"];
+  $veri2->veriDuzenle($tablo_adi, $sutunlar, $kosul);
+
+  if($veri2->veriDuzenle($tablo_adi, $sutunlar, $kosul))
+  {
+    $updated = true;
+  }
+
+}
 ?>
-
-
-
     <body>
       <div class="container-fluid position-relative d-flex p-0">
         <!-- Sidebar Start -->
@@ -32,6 +44,16 @@ $veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
                 <div class="col">
                   <div class="bg-light rounded p-4" style="height: 100%;">
                       <h6 class="mb-4">Hizmet Düzenle</h6>
+                      <?php
+                      if($updated)
+                      {
+                        ?>
+                          <div class="alert alert-success" role="alert">
+                            <strong>Güncelleme İşlemi Başarıyla Gerçekleşti.</strong>
+                          </div>
+                        <?php
+                      }
+                      ?>
                       <form method="POST">
                           <div class="mb-3">
                             <label for="hizmet_baslik" class="form-label"><h6 style="color: black;">Hizmet Başlık</h6></label>

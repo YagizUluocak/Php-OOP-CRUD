@@ -11,6 +11,19 @@ $sorgu = "";
 $veri = new Veri();
 $tablo_id = $_GET["kategori_id"];
 $veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
+
+
+if(isset($_POST["submit"]))
+{
+$veri2 = new Veri();
+$sutunlar = ["kategori_adi"];
+$kosul = 'kategori_id='.$_GET["kategori_id"];
+$veri2->veriDuzenle($tablo_adi, $sutunlar, $kosul);
+if($veri2->veriDuzenle($tablo_adi, $sutunlar, $kosul))
+{
+  header("location:kategori.php");
+}
+}
 ?>
 
     <body>
