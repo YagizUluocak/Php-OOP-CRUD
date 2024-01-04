@@ -39,28 +39,46 @@ class Veri extends Db
         $stmt->execute($paramArray);
         
     }
-    public function veriDuzenle($tablo_ad, $sutunlar, $kosul)
+    public function veriDuzenle($tablo_ad, $sutunlar, $kosul, $resimSutun = null)
     {
         $query = "UPDATE $tablo_ad SET ";
 
         $set = [];
         $params = [];
-        foreach ($sutunlar as $sutun) {
-            $set[] = "$sutun = :$sutun";
-            $params[":$sutun"] = $_POST[$sutun] ?? null;
+        // $_POST verilerini işle
+        foreach ($sutunlar as $sutun)
+        {
+            if ($sutun !== $resimSutun)
+            {
+                $set[] = "$sutun = :$sutun";
+                $params[":$sutun"] = $_POST[$sutun] ?? null;
+            }
         }
-    
+        // Yeni bir resim yüklendi mi ve hata kodu 0 ise
+        if ($resimSutun && isset($_FILES[$resimSutun]) && $_FILES[$resimSutun]["error"] == 0)
+        {
+            $set[] = "$resimSutun = :$resimSutun";
+            $params[":$resimSutun"] = $_FILES[$resimSutun]['name'] ?? null;      
+        }
+        
         $query .= implode(', ', $set);
-    
-        if ($kosul) {
+
+        if ($kosul)
+        {
             $query .= " WHERE $kosul";
         }
-    
-        $stmt = $this->connect()->prepare($query);
-    
-        return $stmt->execute($params);
 
+        $stmt = $this->connect()->prepare($query);
+        return $stmt->execute($params);
     }
+    public function veriSil($tablo_ad, $id_alan_isim, $id)
+    {
+        $query = "DELETE FROM ".$tablo_ad." WHERE ".$id_alan_isim."= ?";
+        $stmt = $this->connect()->prepare($query);
+        return $stmt->execute([$id]);
+    }
+
+
     
 }
 

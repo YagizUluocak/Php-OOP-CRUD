@@ -4,10 +4,32 @@ include "../classes/functions.class.php";
 include "../inc/_header.php";
 ?>
 <?php
-$tablo_adi = "urunler";
-$sorgu = " INNER JOIN kategori ON urunler.kategori_id = kategori.kategori_id;";
-$veri = new Veri();
-$veriGetir = $veri->veriGetir($tablo_adi, $sorgu);
+
+    $tablo_adi = "urunler";
+    $sorgu = " INNER JOIN kategori ON urunler.kategori_id = kategori.kategori_id;";
+    $veri = new Veri();
+    $veriGetir = $veri->veriGetir($tablo_adi, $sorgu);
+
+    // VERİ SİL
+    if(isset($_GET['islem']) && $_GET['islem'] === 'urunsil')
+    {
+        $tablo_id = $_GET["urun_id"]; 
+        $id_alan_isim = "urun_id";
+
+        $veri = new Veri();
+        $tablo_id = $_GET[$id_alan_isim];
+        $VeriSil = $veri->veriSil($tablo_adi, $id_alan_isim, $tablo_id);
+        if($VeriSil)
+        {
+            echo "<script>window.location.href='urun.php?urunsil=ok';</script>";
+            exit;
+        }
+        else 
+        {
+            echo "<script>window.location.href='urun.php?urunsil=no';</script>";
+            exit;
+        }
+    }
 ?>
         <body>
             <div class="container-fluid position-relative d-flex p-0">,
@@ -63,7 +85,7 @@ $veriGetir = $veri->veriGetir($tablo_adi, $sorgu);
                                                                 ?>
                                                           </td>
                                                           <td><p class="hizala"><a href="./urun-duzenle.php?urun_id=<?php echo $urun->urun_id?>" class="btn btn-warning btn-sm"><i class="fa fa-pen me-2"></i>Düzenle</a></p></td>      
-                                                          <td><p class="hizala"><a href="./urun.php" class="btn btn-danger btn-sm"><i class="fa fa-trash me-2"></i>sil</a></p></td>                                                      
+                                                          <td><p class="hizala"><a href="./urun.php?urun_id=<?php echo $urun->urun_id?>&islem=urunsil" class="btn btn-danger btn-sm"><i class="fa fa-trash me-2"></i>sil</a></p></td>                                                      
                                                       </tr>
                                                       <?php
                                                     }

@@ -18,6 +18,30 @@ include "../inc/_header.php";
     $kategori = new Veri();
     $kategoriGetir = $kategori->veriGetir($tablo2, $sorgu2);
 ?>
+<?php
+if(isset($_POST["submit"]))
+{
+  $veri = new Veri();
+
+  $tablo_adi = "urunler"; // İşlem yapılacak tablo adı
+  $sutunlar = ["urun_adi", "urun_aciklama", "urun_fiyat", "urun_durum", "kategori_id"]; // İşlenecek sütunlar
+  $kosul = 'urun_id='.$_GET["urun_id"]; // İşlem yapılacak verilerin koşulu
+  $resim_sutun_adi = "urun_resim";
+
+  $dest_path = "../../images/urunler/";
+  $resim_name = $_FILES["urun_resim"]["name"];
+  $fileSourcePath = $_FILES["urun_resim"]["tmp_name"];
+  $fileDestPath = $dest_path . $resim_name;
+  move_uploaded_file($fileSourcePath, $fileDestPath);
+
+
+
+  // Veriyi güncellemek için fonksiyon çağrısı
+  $veri->veriDuzenle($tablo_adi, $sutunlar, $kosul, $resim_sutun_adi);
+
+  $veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
+}
+?>
     <body>
       <div class="container-fluid position-relative d-flex p-0">
         <!-- Sidebar Start -->

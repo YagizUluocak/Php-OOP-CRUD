@@ -28,7 +28,7 @@
                 </a>
 
                 <div class="navbar-nav w-100">
-                    <a href="../pages/index.php" class="nav-item nav-link"><i class="fa-solid fa-house me-2"></i>Ana Sayfa</a>
+                    <a href="../page/index.php" class="nav-item nav-link"><i class="fa-solid fa-house me-2"></i>Ana Sayfa</a>
                     <a href="../page/blog.php" class="nav-item nav-link"><i class="fa-solid fa-blog me-2"></i>Blog</a>
                     <a href="../page/hizmet.php" class="nav-item nav-link"><i class="fa-solid fa-suitcase me-2"></i>Hizmetler</a>
                     <a href="../page/urun.php" class="nav-item nav-link"><i class="fa-solid fa-shirt me-2"></i>Ürünler</a>

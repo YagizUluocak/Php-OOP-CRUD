@@ -3,11 +3,34 @@ require_once('../classes/db.class.php');
 include "../classes/functions.class.php";
 include "../inc/_header.php";
 ?>
+
 <?php
-$tablo_adi = "hizmetler";
-$sorgu = "";
-$veri = new Veri();
-$veriGetir = $veri->veriGetir($tablo_adi, $sorgu);
+
+    $tablo_adi = "hizmetler";
+    $sorgu = "";
+    $veri = new Veri();
+    $veriGetir = $veri->veriGetir($tablo_adi, $sorgu);
+
+    // VERİ SİL
+    if(isset($_GET['islem']) && $_GET['islem'] === 'hizmetsil')
+    {
+        $tablo_id = $_GET["hizmet_id"]; 
+        $id_alan_isim = "hizmet_id";
+
+        $veri = new Veri();
+        $tablo_id = $_GET[$id_alan_isim];
+        $VeriSil = $veri->veriSil($tablo_adi, $id_alan_isim, $tablo_id);
+        if($VeriSil)
+        {
+            echo "<script>window.location.href='hizmet.php?hizmetsil=ok';</script>";
+            exit;
+        }
+        else 
+        {
+            echo "<script>window.location.href='hizmet.php?hizmetsil=no';</script>";
+            exit;
+        }
+    }
 ?>
 
         <body>

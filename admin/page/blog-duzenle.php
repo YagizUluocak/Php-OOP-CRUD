@@ -12,7 +12,30 @@ $veri = new Veri();
 $tablo_id = $_GET["blog_id"];
 $veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
 ?>
+<?php
+if(isset($_POST["submit"]))
+{
+  $veri = new Veri();
 
+  $tablo_adi = "blog"; // İşlem yapılacak tablo adı
+  $sutunlar = ["blog_baslik", "blog_icerik", "blog_keywords", "blog_description", "blog_durum"]; // İşlenecek sütunlar
+  $kosul = 'blog_id='.$_GET["blog_id"]; // İşlem yapılacak verilerin koşulu
+  $resim_sutun_adi = "blog_resim";
+
+  $dest_path = "../../images/blog/";
+  $resim_name = $_FILES["blog_resim"]["name"];
+  $fileSourcePath = $_FILES["blog_resim"]["tmp_name"];
+  $fileDestPath = $dest_path . $resim_name;
+  move_uploaded_file($fileSourcePath, $fileDestPath);
+
+
+
+  // Veriyi güncellemek için fonksiyon çağrısı
+  $veri->veriDuzenle($tablo_adi, $sutunlar, $kosul, $resim_sutun_adi);
+
+  $veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
+}
+?>
 
     <body>
       <div class="container-fluid position-relative d-flex p-0">
@@ -34,7 +57,7 @@ $veriGetir = $veri->veriIdGetir($tablo_adi, $tablo_id_alan, $tablo_id, $sorgu);
                       <form method="POST" enctype="multipart/form-data">
                           <div class="mb-3">
                             <label for="blog_resim" class="form-label"> <h6 style="color: black;">Resim</h6></label>
-                            <img style="width:150px;" class="img-fluid mb-4" src="#" alt="">
+                            <img style="width:150px;" class="img-fluid mb-4" src="../../images/blog/<?php echo $veriGetir->blog_resim?>" alt="">
                             <input class="form-control bg-dark" type="file" id="blog_resim" name="blog_resim" value = "<?php echo $veriGetir->blog_resim?>">
                           </div>
                           <div class="mb-3">
