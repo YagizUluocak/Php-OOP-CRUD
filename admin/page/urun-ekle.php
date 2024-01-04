@@ -1,5 +1,39 @@
 <?php
+require_once('../classes/db.class.php');
+include "../classes/functions.class.php";
 include "../inc/_header.php";
+?>
+<?php
+$tablo2 = "kategori";
+$sorgu2 = "";
+$kategori = new Veri();
+$kategoriGetir = $kategori->veriGetir($tablo2, $sorgu2);
+
+$tablo_ad = "urunler";
+$sutunlar = ["urun_adi", "urun_aciklama", "urun_fiyat", "urun_durum", "kategori_id", "urun_resim"];
+
+if(isset($_POST["submit"]))
+{
+  $urun_adi = $_POST["urun_adi"];
+  $urun_aciklama = $_POST["urun_aciklama"];
+  $urun_fiyat  = $_POST["urun_fiyat"];
+  $urun_durum  = $_POST["urun_durum"];
+  $kategori_id  = $_POST["kategori_id"];
+  $urun_resim = $_FILES["urun_resim"];
+
+  $dest_path = "../../images/urunler/";
+  $urun_resim = $_FILES["urun_resim"]["name"];
+  $fileSourcePath = $_FILES["urun_resim"]["tmp_name"];
+  $fileDestPath = $dest_path . $urun_resim;
+  move_uploaded_file($fileSourcePath, $fileDestPath);
+
+  $veri = new Veri();
+  $veriEkle = $veri->veriEkle($tablo_ad, $sutunlar, [$urun_adi, $urun_aciklama, $urun_fiyat, $urun_durum, $kategori_id, $urun_resim]);
+  
+}
+
+
+
 ?>
 
 
@@ -43,16 +77,14 @@ include "../inc/_header.php";
                           <div class="mb-3">
                             <label for="kategori_id" class="form-label"><h6 style="color: black;">Ürün Kategorisi</h6></label>
                             <select class="form-control" name="kategori_id" id="kategori_id">
-                              <option name="kategori_id" value="0">Mont</option>
-                              <option name="kategori_id" value="1">Ayakkabı</option>
-                              <option name="kategori_id" value="2">Bere</option>
-                              <option name="kategori_id" value="3">Kazak</option>
-                              <option name="kategori_id" value="4">Gömlek</option>
-                              <option name="kategori_id" value="5">Hoodie</option>
-                              <option name="kategori_id" value="6">Pantolon</option>
-                              <option name="kategori_id" value="7">Etek</option>
-                              <option name="kategori_id" value="8">Ceket</option>
-                              <option name="kategori_id" value="9">T-Shirt</option>
+                            <?php
+                              foreach($kategoriGetir as $kategori)
+                              {
+                                ?>
+                                <option name="kategori_id" value="<?php echo $kategori->kategori_id?>"><?php echo $kategori->kategori_adi?></option>
+                                <?php
+                              }
+                              ?>          
                             </select>
                           </div>
 

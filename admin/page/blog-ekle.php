@@ -1,8 +1,31 @@
 <?php
+require_once('../classes/db.class.php');
+include "../classes/functions.class.php";
 include "../inc/_header.php";
+
+$tablo_ad = "blog";
+$sutunlar = ["blog_baslik", "blog_icerik", "blog_durum", "blog_keywords", "blog_description", "blog_resim"];
+
+if(isset($_POST["submit"]))
+{
+  $blog_baslik = $_POST["blog_baslik"];
+  $blog_icerik = $_POST["blog_icerik"];
+  $blog_durum  = $_POST["blog_durum"];
+  $blog_keywords  = $_POST["blog_keywords"];
+  $blog_description  = $_POST["blog_description"];
+  $blog_resim = $_FILES["blog_resim"];
+
+  $dest_path = "../../images/blog/";
+  $blog_resim = $_FILES["blog_resim"]["name"];
+  $fileSourcePath = $_FILES["blog_resim"]["tmp_name"];
+  $fileDestPath = $dest_path . $blog_resim;
+  move_uploaded_file($fileSourcePath, $fileDestPath);
+
+  $veri = new Veri();
+  $veriEkle = $veri->veriEkle($tablo_ad, $sutunlar, [$blog_baslik, $blog_icerik, $blog_durum, $blog_keywords, $blog_description, $blog_resim] );
+  
+}
 ?>
-
-
     <body>
       <div class="container-fluid position-relative d-flex p-0">
         <!-- Sidebar Start -->
